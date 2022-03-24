@@ -1,0 +1,46 @@
+Partimos de un microsericio PÚBLICO real que nosde vuelver una lista de países.
+
+Si tenemos que el micro destino nos devuelve un array de objetos con una estructura muy compleja
+no es posible mapearlo directamente a un objeto o a una gerarquía de objetos java que tendríamso que crear.
+
+LO QUE TENEMOS QUE HACER ES MANIPULAR ESA RESPUESTA PARA OBETENER SÓLAMENTE LOS DATOS QUE NOS INTERESAN.
+
+Utilizando la librería Jackson (incorporada en el starter spring web). Nos proporciona.
+	Clases para manipular el JSON que tenemos como respuesta
+	Permite acceder y recorrer los arrays
+	Acceder a los elementos indicidualizados ( para extraer en que nos interesa)
+	
+	CLASES PRINCIPALES:
+		ObjectMapper: hay que crear esta clase.
+			Con su método reatTree() obtenemos acceso al interior del documento.
+			
+			EN ESE DOCUMENTO NOS PODEMOS ENCONTRAR Arrays U Objetos:
+				La clase ArrayNode: nos permite manejar arrays
+				La clase ObjectNode
+
+0. En la clase principal
+
+	@Bean
+	public RestTemplate template() {
+		return new RestTemplate();
+	}
+	
+1. Creamos el Objeto Pais en el model
+
+2. Implementamos una lógica de negocio que se encargue de acceder al servicio remoto. (Usando el restTEmplate)
+   y utilizando unos métodos que nos permitan devolver al controlador los campos que nos interesen.
+   
+	1. @Service
+	2. Declaramos los atributos 
+		@Autowired
+		RestTemplate template;
+		final String url = "https://restcountries.com/v2/all";
+		
+	3. Método obtenerPaises
+		3.1  Le indicamos que la respuesta va a ser un gran string String resulatado= template.getForObject(url, String.class);
+		3.2 Creamos el ObjectMapper
+		3.3 La lista de objetos a devolver.
+		3.4 Hacemos el mapeo
+		
+
+
